@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export default function Navbar() {
@@ -6,7 +6,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.prevent.default();
+    e.preventDefault();
     if (query.trim()) {
       navigate(`/search?q=${encodeURIComponent(query.trim())}`);
       // encodeURIComponent makes the query URL-safe
