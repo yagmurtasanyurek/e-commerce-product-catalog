@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchProducts } from "../api/products";
 
 export function useProducts() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   //useSearchParams reads the current URL, so filters changes.
   //and becomes something like : laptop, price ,page 2
   //which changes the queryKey. React Q fetches again.
@@ -17,7 +17,7 @@ export function useProducts() {
 
   // fetch, cache
   return useQuery({
-    queryKey: ["producst", filters],
+    queryKey: ["products", filters],
     //The function that the query will use to request data.
     queryFn: () => fetchProducts(filters),
     staleTime: 1000 * 60 * 5,
