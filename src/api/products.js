@@ -10,14 +10,13 @@ export async function fetchProducts({ category, sort, page = 1, limit = 12 }) {
   if (!res.ok) throw new Error("Failed to fetch products");
   //When that error is thrown, React Query catches it automatically
   //  and puts it in the isError state.
-  console.log(res.json);
-  return res.json;
+  return await res.json();
 }
 
 export async function fetchProduct(id) {
   const res = await fetch(`${BASE_URL}/products/${id}`);
   if (!res.ok) throw new Error("Failed to fetch product");
-  return res.json();
+  return await res.json();
 }
 
 export async function searchProducts(query) {
@@ -25,6 +24,5 @@ export async function searchProducts(query) {
     `${BASE_URL}/products/search?q=${encodeURIComponent(query)}`,
   );
   if (!res.ok) throw new Error("Search failed");
-  console.log(res.json);
-  return res.json();
+  return await res.json();
 }
