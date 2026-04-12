@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 export default function ProductCard({ product }) {
   return (
-    <Link to={`products/:${product.id}`}>
+    <Link to={`products/${product.id}`}>
       <div>
         <img
           src={product.thumbnail}

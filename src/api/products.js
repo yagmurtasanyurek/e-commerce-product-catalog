@@ -1,7 +1,7 @@
 const BASE_URL = "https://dummyjson.com";
 
 export async function fetchProducts({ category, sort, page = 1, limit = 12 }) {
-  let url = `${BASE_URL}/products?linit=${limit}&skip=${(page - 1) * limit}`;
+  let url = `${BASE_URL}/products?limit=${limit}&skip=${(page - 1) * limit}`;
 
   if (category) url = `${BASE_URL}/products/category/${category}`;
   if (sort) url += `&sortBy=${sort}&order=asc`;
@@ -14,7 +14,9 @@ export async function fetchProducts({ category, sort, page = 1, limit = 12 }) {
 }
 
 export async function fetchProduct(id) {
-  const res = await fetch(`${BASE_URL}/products/${id}`);
+  const url = `${BASE_URL}/products/${id}`;
+  console.log(url);
+  const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to fetch product");
   return await res.json();
 }
