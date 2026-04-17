@@ -1,11 +1,12 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "../hooks/useProduct";
+import { useCartStore } from "../store/cartStore";
 
 export default function ProductDetail() {
   const { id } = useParams();
   const { data, isLoading, isError } = useProduct(id);
   const navigate = useNavigate();
-  console.log(id);
+  const addItem = useCartStore((s) => s.addItem);
 
   if (isError) return <p>There's an error.</p>;
   if (isLoading) return <p>Loading...</p>;
@@ -27,7 +28,7 @@ export default function ProductDetail() {
           <h1>{data.title}</h1>
           <p>★{data.rating}</p>
           <p>{data.price}</p>
-          <button>Add to cart</button>
+          <button onClick={() => addItem(data)}>Add to cart</button>
         </div>
       </div>
 

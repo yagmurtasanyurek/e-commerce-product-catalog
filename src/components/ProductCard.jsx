@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
+import { useCartStore } from "../store/cartStore";
+
 export default function ProductCard({ product }) {
+  const addItem = useCartStore((s) => s.addItem);
   return (
     <Link to={`products/${product.id}`}>
       <div>
@@ -20,6 +23,7 @@ export default function ProductCard({ product }) {
         <div>
           <h5>${product.price}</h5>
         </div>
+        <button onClick={() => addItem(product)}> Add to cart</button>
       </div>
     </Link>
   );
