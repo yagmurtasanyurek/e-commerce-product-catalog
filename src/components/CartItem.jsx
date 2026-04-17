@@ -1,5 +1,4 @@
 import { useCartStore } from "../store/cartStore";
-
 export default function CartItem(item) {
   const removeItem = useCartStore((s) => s.removeItem);
   const updateQty = useCartStore((s) => s.updateQty);
