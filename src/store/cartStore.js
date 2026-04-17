@@ -10,10 +10,11 @@ export const useCartStore = create(
           const exists = state.items.find((item) => item.id === product.id);
 
           if (exists) {
+            if (exists.qty >= 10) return { items: state.items };
             return {
-              items: state.items.map((item) => {
-                item.id === product.id ? { ...item, qty: item.qty + 1 } : item;
-              }),
+              items: state.items.map((item) =>
+                item.id === product.id ? { ...item, qty: item.qty + 1 } : item,
+              ),
             };
           }
 
@@ -29,11 +30,20 @@ export const useCartStore = create(
         })),
 
       updateQty: (id, delta) => {
-        set((state) => ({
-          items: state.items.map((item) =>
-            item.id === id ? { ...item, qty: item.qty + delta } : item,
-          ),
-        }));
+        set((state) => {
+          const item = state.items.find((i) => i.id === id);
+          // If item is at 1 and user hits minus, REMOVE it
+          if (item && item.qty === 1 && delta === -1) {
+            return {
+              items: state.items.filter((i) => i.id !== id),
+            };
+          }
+          return {
+            items: state.items.map((i) =>
+              i.id === id ? { ...i, qty: Math.min(i.qty + delta, 10) } : i,
+            ),
+          };
+        });
       },
       clearCart: () => {
         set({ items: [] });

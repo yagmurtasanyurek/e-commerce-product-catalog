@@ -22,7 +22,7 @@ export default function Cart() {
       <h1>Your cart</h1>
       <div>
         {items.map((item) => (
-          <CartItem product={item} key={item.id} />
+          <CartItem item={item} key={item.id} />
         ))}
 
         <button onClick={clearCart}>Clear Cart</button>
