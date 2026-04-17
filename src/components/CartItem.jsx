@@ -1,7 +1,8 @@
 import { useCartStore } from "../store/cartStore";
-export default function CartItem(item) {
+export default function CartItem({ item }) {
   const removeItem = useCartStore((s) => s.removeItem);
   const updateQty = useCartStore((s) => s.updateQty);
+  console.log(item);
   return (
     <div>
       <img src={item.thumbnail} alt={item.title} />
@@ -15,7 +16,7 @@ export default function CartItem(item) {
         {/* note : Disable button if quantity is 10  */}
         <button onClick={() => updateQty(item.id, 1)}>+</button>
       </div>
-      <p>${(item.price * item.qty).toFixed(2)}</p>
+      <p>${(Number(item.price || 0) * item.qty).toFixed(2)}</p>
       <button onClick={() => removeItem(item.id)}>Remove</button>
     </div>
   );
